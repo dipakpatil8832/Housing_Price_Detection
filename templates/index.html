@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>House Price Predictor</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+<body>
+    <h1>California Housing Price Prediction</h1>
+    <div class="container">
+    <form method="POST">
+        {% for field in [
+            'longitude','latitude','housing_median_age','total_rooms',
+            'total_bedrooms','population','households','median_income'
+        ] %}
+            <label>{{ field }}:</label>
+            <input type="number" step="any" name="{{ field }}" required><br><br>
+        {% endfor %}
+        <label>ocean_proximity:</label>
+        <select name="ocean_proximity">
+            <option value="NEAR BAY">NEAR BAY</option>
+            <option value="INLAND">INLAND</option>
+            <option value="NEAR OCEAN">NEAR OCEAN</option>
+            <option value="ISLAND">ISLAND</option>
+            <option value="1H OCEAN">1H OCEAN</option>
+        </select><br><br>
+        <button type="submit">Predict</button>
+    </form>
+
+</div>
+    {% if prediction %}
+        <h2>Predicted Median House Value: {{ prediction | round(2) }}</h2>
+    {% endif %}
+</body>
+</html>
